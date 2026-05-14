@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Primer Congreso de Alto Rendimiento en Fútbol. Del 8 al 19 de junio de 2026, online y en directo. 16 ponentes expertos.">
+    <title>I Congreso de Alto Rendimiento en Fútbol</title>
+    <link rel="icon" type="image/png" href="logo-academia.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: #080808;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        :root {
+            --g: #f7941d;
+            --g-dim: rgba(247,148,29,0.12);
+            --g-glow: rgba(247,148,29,0.28);
+            --border: #1c1c1c;
+            --card: #0e0e0e;
+            --muted: #555;
+        }
+
+        /* ─── HERO ─── */
+        .hero {
+            position: relative;
+            min-height: 100svh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 5rem 1.5rem 7rem;
+            text-align: center;
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(ellipse 80% 55% at 50% 48%, rgba(247,148,29,0.07) 0%, transparent 65%),
+                repeating-linear-gradient(0deg,
+                    rgba(247,148,29,0.025) 0px, rgba(247,148,29,0.025) 80px,
+                    rgba(247,148,29,0.042) 80px, rgba(247,148,29,0.042) 160px);
+            pointer-events: none;
+        }
+        .hero-inner { position: relative; z-index: 1; max-width: 960px; }
+
+        .logo-academia {
+            display: block;
+            height: 90px;
+            width: auto;
+            margin: 0 auto 2rem;
+            object-fit: contain;
+        }
+
+        h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 9.5vw, 7.8rem);
+            line-height: 0.94;
+            letter-spacing: 0.015em;
+            margin-bottom: 2.5rem;
+        }
+        h1 em { font-style: normal; color: var(--g); }
+
+        .hero-meta {
+            display: flex; justify-content: center;
+            flex-wrap: wrap; gap: 0.4rem 1.2rem; margin-bottom: 3rem;
+        }
+        .chip {
+            display: flex; align-items: center; gap: 0.4rem;
+            font-size: 0.82rem; font-weight: 500; color: #aaa;
+        }
+        .chip::before {
+            content: ''; display: block;
+            width: 5px; height: 5px; border-radius: 50%;
+            background: var(--g); flex-shrink: 0;
+        }
+
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 1rem 2.8rem;
+            background: var(--g); color: #000;
+            font-weight: 800; font-size: 0.9rem;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            border-radius: 5px; text-decoration: none;
+            box-shadow: 0 0 40px var(--g-glow);
+            transition: background .2s, box-shadow .2s, transform .2s;
+        }
+        .btn:hover {
+            background: #f9a84d;
+            box-shadow: 0 0 65px rgba(247,148,29,0.42);
+            transform: translateY(-2px);
+        }
+
+        .scroll-cue {
+            position: absolute; bottom: 2rem; left: 50%;
+            transform: translateX(-50%); z-index: 1;
+            display: flex; flex-direction: column; align-items: center; gap: 0.35rem;
+            color: #2c2c2c; font-size: 0.62rem;
+            letter-spacing: 0.15em; text-transform: uppercase;
+            animation: bob 2.5s ease-in-out infinite;
+        }
+        @keyframes bob {
+            0%,100% { opacity:.45; transform: translateX(-50%) translateY(0); }
+            50%      { opacity:.9;  transform: translateX(-50%) translateY(6px); }
+        }
+
+        /* ─── STATS ─── */
+        .stats {
+            display: flex; justify-content: center; flex-wrap: wrap;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .stat {
+            flex: 1 1 120px; max-width: 200px;
+            padding: 1.35rem 1rem; text-align: center;
+            border-right: 1px solid var(--border);
+        }
+        .stat:last-child { border-right: none; }
+        .stat-n {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.1rem; color: var(--g);
+            line-height: 1; letter-spacing: 0.05em;
+        }
+        .stat-l {
+            font-size: 0.6rem; font-weight: 700;
+            letter-spacing: 0.16em; text-transform: uppercase;
+            color: var(--muted); margin-top: 0.15rem;
+        }
+
+        /* ─── SPEAKERS ─── */
+        .speakers {
+            max-width: 1260px; margin: 0 auto;
+            padding: 5rem 1.5rem;
+        }
+        .sec-head { text-align: center; margin-bottom: 3rem; }
+        .sec-tag {
+            display: block; font-size: 0.68rem; font-weight: 700;
+            letter-spacing: 0.2em; text-transform: uppercase;
+            color: var(--g); margin-bottom: 0.4rem;
+        }
+        .sec-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.8rem);
+            letter-spacing: 0.04em;
+        }
+        .sec-sub {
+            margin-top: 0.45rem;
+            color: var(--muted); font-size: 0.86rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 1.2rem;
+        }
+
+        /* Card base */
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px; overflow: hidden;
+        }
+        .card--revealed {
+            transition: transform .22s, border-color .22s, box-shadow .22s;
+        }
+        .card--revealed:hover {
+            transform: translateY(-5px);
+            border-color: rgba(247,148,29,0.3);
+            box-shadow: 0 14px 44px rgba(0,0,0,0.55);
+        }
+
+        /* Revealed: photo area */
+        .card-photo {
+            width: 100%; aspect-ratio: 1;
+            object-fit: cover; object-position: center top;
+            display: block; background: #111;
+        }
+        .card-photo-ph {
+            width: 100%; aspect-ratio: 1;
+            background: linear-gradient(155deg, #1c1208 0%, #130d05 100%);
+            position: relative; overflow: hidden;
+        }
+        .card-photo-ph svg {
+            position: absolute; bottom: -3%; left: 50%;
+            transform: translateX(-50%);
+            width: 68%; height: auto;
+        }
+
+        /* Revealed: info */
+        .card-body { padding: 1rem 1.1rem 1.3rem; }
+        .card-sublabel {
+            font-size: 0.6rem; font-weight: 700;
+            letter-spacing: 0.14em; text-transform: uppercase;
+            color: var(--g); margin-bottom: 0.3rem;
+        }
+        .card-name {
+            font-size: 1rem; font-weight: 700;
+            line-height: 1.2; margin-bottom: 0.3rem;
+        }
+        .card-talk {
+            font-size: 0.78rem; color: var(--muted); line-height: 1.45;
+        }
+        .card-date {
+            margin-top: 0.5rem;
+            font-size: 0.72rem; font-weight: 700;
+            color: var(--g); letter-spacing: 0.04em;
+        }
+
+        /* Hidden card */
+        .card--hidden .card-sil {
+            width: 100%; aspect-ratio: 1;
+            background: #090909;
+            display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden;
+        }
+        .card--hidden .card-sil svg {
+            width: 65%; height: auto;
+        }
+        .sil-badge {
+            position: absolute; bottom: 0.8rem; left: 50%;
+            transform: translateX(-50%); white-space: nowrap;
+            padding: 0.22rem 0.75rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid #232323; border-radius: 999px;
+            font-size: 0.58rem; font-weight: 700;
+            letter-spacing: 0.13em; text-transform: uppercase;
+            color: #2e2e2e; z-index: 1;
+        }
+
+        /* ─── FOOTER CTA ─── */
+        .fcta {
+            text-align: center;
+            padding: 5rem 1.5rem 6rem;
+            border-top: 1px solid var(--border);
+            position: relative; overflow: hidden;
+        }
+        .fcta::before {
+            content: '';
+            position: absolute; top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 700px; height: 280px;
+            background: radial-gradient(ellipse at top, rgba(247,148,29,0.05) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .fcta h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            letter-spacing: 0.04em; margin-bottom: 0.75rem;
+            position: relative;
+        }
+        .fcta p {
+            color: var(--muted); font-size: 0.88rem;
+            margin-bottom: 2.5rem; position: relative;
+        }
+
+        footer {
+            padding: 1.5rem; text-align: center;
+            color: #222; font-size: 0.7rem;
+            letter-spacing: 0.04em;
+            border-top: 1px solid #111;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+            .stat { padding: 1rem 0.4rem; flex: 1 1 70px; }
+            .stat-n { font-size: 1.7rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero" id="inicio">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+        <img src="logo-academia.png" alt="Logo Academia" class="logo-academia">
+        <h1>
+            PRIMER CONGRESO DE<br>
+            <em>ALTO RENDIMIENTO</em><br>
+            EN FÚTBOL
+        </h1>
+        <div class="hero-meta">
+            <span class="chip">8–19 de junio de 2026</span>
+            <span class="chip">Online</span>
+            <span class="chip">En directo</span>
+            <span class="chip">16 ponentes</span>
+        </div>
+        <a href="https://forms.gle/r7AvE4BUw7UwMHKJ7" target="_blank" rel="noopener" class="btn">
+            Solicitar plaza
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+    </div>
+    <div class="scroll-cue" aria-hidden="true">
+        <span>Ponentes</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </div>
+</section>
+
+<!-- ══════════════ STATS ══════════════ -->
+<div class="stats" aria-hidden="true">
+    <div class="stat"><div class="stat-n">16</div><div class="stat-l">Ponentes</div></div>
+    <div class="stat"><div class="stat-n">12</div><div class="stat-l">Días</div></div>
+    <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Online</div></div>
+    <div class="stat"><div class="stat-n">LIVE</div><div class="stat-l">En directo</div></div>
+</div>
+
+<!-- ══════════════ PONENTES ══════════════ -->
+<section class="speakers" id="ponentes">
+    <div class="sec-head">
+        <span class="sec-tag">Conoce a los expertos</span>
+        <h2 class="sec-title">PONENTES</h2>
+        <p class="sec-sub">Desvelamos un nuevo ponente cada día. ¿Quién será el próximo?</p>
+    </div>
+
+    <div class="grid">
+
+        <!-- ── 1: JOHN TAPIA OWENS (REVELADO) ── -->
+        <div class="card card--revealed">
+            <img src="john-tapia.jpg" alt="John Tapia Owens" class="card-photo">
+            <div class="card-body">
+                <div class="card-sublabel">Ponencia</div>
+                <div class="card-name">John Tapia Owens</div>
+                <div class="card-talk">Construcción del juego desde el portero</div>
+                <div class="card-date">Jueves 18 jun · 20:00h</div>
+            </div>
+        </div>
+
+        <!-- ── 2–16: OCULTOS ── -->
+        <div class="card card--hidden"><div class="card-sil"><svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg" fill="#141414"><circle cx="50" cy="30" r="22"/><path d="M5 110 C5 72 22 57 50 54 C78 57 95 72 95 110Z"/></svg><span class="sil-badge">Próximo anuncio</span></div></div>
+        <div class="card card--hidden"><div class="card-sil"><svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg" fill="#141414"><circle cx="50" cy="30" r="22"/><path d="M5 110 C5 72 22 57 50 54 C78 57 95 72 95 110Z"/></svg><span class="sil-badge">Próximo anuncio</span></div></div>
+        <div class="card card--hidden"><div class="card-sil"><svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg" fill="#141414"><circle cx="50" cy="30" r="22"/><path d="M5 110 C5 72 22 57 50 54 C78 57 95 72 95 110Z"/></svg><span class="sil-badge">Próximo anuncio</span></div></div>
+        <div class="card card--hidden"><div class="card-sil"><svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg" fill="#141414"><circle cx="50" cy="30" r="22"/><path d="M5 110 C5 72 22 57 50 54 C78 57 95 72 95 110Z"/></svg><span class="sil-badge">Próximo anuncio</span></div></div>
+        <div class="card card--hidden"><div class="card-sil"><svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg" fill="#141414"><circle cx="50" cy="30" r="22"/><path d="M5 110 C5 72 22 57 50 54 C78 57 95 72 95 110Z"/></svg><span class="sil-badge">Próximo anuncio</span></div></div>
+        <div class="card card--hidden"><div class="card-sil"><svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg" fill="#141414"><circle cx="50" cy="30" r="22"/><path d="M5 110 C5 72 22 57 50 54 C78 57 95 72 95 110Z"/></svg><span class="sil-badge">Próximo anuncio</span></div></div>
+        <div class="card card--hidden"><div class="card-sil"><svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg" fill="#141414"><circle cx="50" cy="30" r="22"/><path d="M5 110 C5 72 22 57 50 54 C78 57 95 72 95 110Z"/></svg><span class="sil-badge">Próximo anuncio</span></div></div>
+        <div class="card card--hidden"><div class="card-sil"><svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg" fill="#141414"><circle cx="50" cy="30" r="22"/><path d="M5 110 C5 72 22 57 50 54 C78 57 95 72 95 110Z"/></svg><span class="sil-badge">Próximo anuncio</span></div></div>
+        <div class="card card--hidden"><div class="card-sil"><svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg" fill="#141414"><circle cx="50" cy="30" r="22"/><path d="M5 110 C5 72 22 57 50 54 C78 57 95 72 95 110Z"/></svg><span class="sil-badge">Próximo anuncio</span></div></div>
+        <div class="card card--hidden"><div class="card-sil"><svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg" fill="#141414"><circle cx="50" cy="30" r="22"/><path d="M5 110 C5 72 22 57 50 54 C78 57 95 72 95 110Z"/></svg><span class="sil-badge">Próximo anuncio</span></div></div>
+        <div class="card card--hidden"><div class="card-sil"><svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg" fill="#141414"><circle cx="50" cy="30" r="22"/><path d="M5 110 C5 72 22 57 50 54 C78 57 95 72 95 110Z"/></svg><span class="sil-badge">Próximo anuncio</span></div></div>
+        <div class="card card--hidden"><div class="card-sil"><svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg" fill="#141414"><circle cx="50" cy="30" r="22"/><path d="M5 110 C5 72 22 57 50 54 C78 57 95 72 95 110Z"/></svg><span class="sil-badge">Próximo anuncio</span></div></div>
+        <div class="card card--hidden"><div class="card-sil"><svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg" fill="#141414"><circle cx="50" cy="30" r="22"/><path d="M5 110 C5 72 22 57 50 54 C78 57 95 72 95 110Z"/></svg><span class="sil-badge">Próximo anuncio</span></div></div>
+        <div class="card card--hidden"><div class="card-sil"><svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg" fill="#141414"><circle cx="50" cy="30" r="22"/><path d="M5 110 C5 72 22 57 50 54 C78 57 95 72 95 110Z"/></svg><span class="sil-badge">Próximo anuncio</span></div></div>
+        <div class="card card--hidden"><div class="card-sil"><svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg" fill="#141414"><circle cx="50" cy="30" r="22"/><path d="M5 110 C5 72 22 57 50 54 C78 57 95 72 95 110Z"/></svg><span class="sil-badge">Próximo anuncio</span></div></div>
+        <div class="card card--hidden"><div class="card-sil"><svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg" fill="#141414"><circle cx="50" cy="30" r="22"/><path d="M5 110 C5 72 22 57 50 54 C78 57 95 72 95 110Z"/></svg><span class="sil-badge">Próximo anuncio</span></div></div>
+
+    </div>
+</section>
+
+<!-- ══════════════ FOOTER CTA ══════════════ -->
+<section class="fcta">
+    <h2>¿LISTO PARA APRENDER<br>DE LOS MEJORES?</h2>
+    <p>Plazas limitadas &nbsp;·&nbsp; Acceso online &nbsp;·&nbsp; Emisión en directo</p>
+    <a href="https://forms.gle/r7AvE4BUw7UwMHKJ7" target="_blank" rel="noopener" class="btn">
+        Solicitar plaza
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+</section>
+
+<footer>
+    © 2026 &nbsp;·&nbsp; Primer Congreso de Alto Rendimiento en Fútbol
+</footer>
+
+</body>
+</html>
